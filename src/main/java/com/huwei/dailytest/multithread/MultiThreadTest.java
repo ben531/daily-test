@@ -16,6 +16,6 @@ public class MultiThreadTest {
 class myThread implements Runnable {
     @Override
     public void run() {
-        System.out.println("myThread is run" + Thread.currentThread().getName());
+        System.out.println("myThread is run: " + Thread.currentThread().getName());
     }
 }
