@@ -22,6 +22,7 @@ public class HashMapTest {
             }
         };
 
+        // 操作iterater时,可以remove某个对象
         for (Map.Entry<Integer, List<String>> entry : hashMap.entrySet()) {
             List<String> value = entry.getValue();
             Iterator<String> iterator = value.iterator();

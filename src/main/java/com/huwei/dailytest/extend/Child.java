@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Child extends Parent {
     private String name;
+    private boolean flag;
 
     public void setName(String name) {
         this.name = name;
@@ -25,9 +26,16 @@ public class Child extends Parent {
 
     public static void main(String[] args) {
         // 父类的引用指向子类的对象, 只能调用父类的方法
-        Parent p = new Child();
-        p.setXing("l");
-        System.out.println(p);
+//        Parent p = new Child();
+//        p.setXing("l");
+//        System.out.println(p);
+//        Child c = new Child();
+
+
         Child c = new Child();
+        System.out.println(c.flag);
+
+
+
     }
 }

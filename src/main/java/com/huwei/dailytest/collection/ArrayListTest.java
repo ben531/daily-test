@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Data
@@ -21,21 +22,28 @@ public class ArrayListTest {
     }
 
     public static void main(String[] args) {
-        List<Person> list = new ArrayList<Person>() {
-            {
-                add(new Person("zhang", 11));
-                add(new Person("zhang", 13));
-                add(new Person("li", 16));
-                add(new Person("wang", 12));
-
-            }
-        };
-
-
-        Map<String, List<Person>> xingListMap = list.stream().collect(Collectors.groupingBy(Person::getXing));
-        xingListMap.forEach((k, v) -> {
-            System.out.println(k + " -> " + v);
+        List<Person> ll = null;
+        Optional.ofNullable(ll).ifPresent(lp->{
+            lp.forEach(p->{
+                p.getAge();
+            });
         });
+
+//        List<Person> list = new ArrayList<Person>() {
+//            {
+//                add(new Person("zhang", 11));
+//                add(new Person("zhang", 13));
+//                add(new Person("li", 16));
+//                add(new Person("wang", 12));
+//
+//            }
+//        };
+//
+//
+//        Map<String, List<Person>> xingListMap = list.stream().collect(Collectors.groupingBy(Person::getXing));
+//        xingListMap.forEach((k, v) -> {
+//            System.out.println(k + " -> " + v);
+//        });
 
     }
 
