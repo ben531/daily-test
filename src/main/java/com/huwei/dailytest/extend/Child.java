@@ -25,6 +25,14 @@ public class Child extends Parent {
     }
 
     public static void main(String[] args) {
+
+        Test test=new Test() {
+            @Override
+            public void setName(String name) {
+
+            }
+        };
+
         // 父类的引用指向子类的对象, 只能调用父类的方法
 //        Parent p = new Child();
 //        p.setXing("l");

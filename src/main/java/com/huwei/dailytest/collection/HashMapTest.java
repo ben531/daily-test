@@ -21,6 +21,7 @@ public class HashMapTest {
                 });
             }
         };
+        boolean empty = hashMap.isEmpty();
 
         // 操作iterater时,可以remove某个对象
         for (Map.Entry<Integer, List<String>> entry : hashMap.entrySet()) {

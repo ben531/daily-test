@@ -29,6 +29,8 @@ public class ArrayListTest {
             });
         });
 
+        boolean empty = ll.isEmpty();
+
 //        List<Person> list = new ArrayList<Person>() {
 //            {
 //                add(new Person("zhang", 11));
