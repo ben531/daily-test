@@ -17,10 +17,10 @@ public class FanxingTest {
 
     public static void main(String[] args) {
         FanxingTest fanxingTest=new FanxingTest();
+        GetSet<String> test = fanxingTest.test;
         fanxingTest.setOrders.forEach((k,v)->{
             System.out.println("k:"+"->"+v);
         });
-        GetSet<String> test = fanxingTest.test;
         test.set("string-1");
         fanxingTest.setOrders.forEach((k,v)->{
             System.out.println("k:"+"->"+v);
