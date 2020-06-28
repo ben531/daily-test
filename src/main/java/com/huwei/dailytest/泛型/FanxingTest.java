@@ -20,7 +20,7 @@ public class FanxingTest {
     protected <T> GetSet<T> getSet(String hashKey) {
         return GetSetBuilder.of(() -> {
             System.out.println("执行get方法");
-            setOrders.put(hashKey, "value");
+//            setOrders.put(hashKey, "value");
             return (T) setOrders.get(hashKey);
         }, (value) -> {
             System.out.println("执行set方法");

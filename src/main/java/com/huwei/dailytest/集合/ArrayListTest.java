@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 public class ArrayListTest {
-
-
     public static void main(String[] args) {
         List<User> users=new ArrayList<User>(){
             {
@@ -28,9 +26,7 @@ public class ArrayListTest {
         System.out.println(collect);
         
 
-        int sum = users.stream().mapToInt(user -> {
-            return user.getAge();
-        }).sum();
+        int sum = users.stream().mapToInt(User::getAge).sum();
         System.out.println(sum);
     }
 
