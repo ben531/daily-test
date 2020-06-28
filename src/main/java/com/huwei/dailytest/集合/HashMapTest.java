@@ -1,6 +1,4 @@
-package com.huwei.dailytest.collection;
-
-import org.springframework.lang.NonNull;
+package com.huwei.dailytest.集合;
 
 import javax.validation.constraints.NotNull;
 import java.util.Map;

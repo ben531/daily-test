@@ -1,7 +1,4 @@
-package com.huwei.dailytest.collection;
-
-import java.util.HashSet;
-import java.util.Set;
+package com.huwei.dailytest.集合;
 
 public class HashSetTest {
     public static void main(String[] args) {

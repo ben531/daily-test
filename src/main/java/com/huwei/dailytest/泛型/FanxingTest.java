@@ -1,4 +1,4 @@
-package com.huwei.dailytest.fanxing;
+package com.huwei.dailytest.泛型;
 
 import java.util.HashMap;
 import java.util.Map;

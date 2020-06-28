@@ -1,6 +1,4 @@
-package com.huwei.dailytest.extend;
-
-import lombok.Data;
+package com.huwei.dailytest.继承;
 
 //@Data
 public class Child {

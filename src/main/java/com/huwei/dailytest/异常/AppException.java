@@ -1,4 +1,4 @@
-package com.huwei.dailytest.exception;
+package com.huwei.dailytest.异常;
 
 public class AppException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.huwei.dailytest.collection;
+package com.huwei.dailytest.集合;
 
 import cn.hutool.core.util.StrUtil;
 

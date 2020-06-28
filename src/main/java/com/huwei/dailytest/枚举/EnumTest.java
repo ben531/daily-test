@@ -1,4 +1,4 @@
-package com.huwei.dailytest.enumeration;
+package com.huwei.dailytest.枚举;
 
 public enum  EnumTest {
     SUCCESS(0,"成功"),

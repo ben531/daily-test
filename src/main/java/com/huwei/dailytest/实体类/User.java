@@ -1,4 +1,4 @@
-package com.huwei.dailytest.entity;
+package com.huwei.dailytest.实体类;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

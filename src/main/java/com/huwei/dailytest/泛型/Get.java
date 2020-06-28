@@ -1,4 +1,4 @@
-package com.huwei.dailytest.fanxing;
+package com.huwei.dailytest.泛型;
 
 public interface Get<T> {
 

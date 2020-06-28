@@ -1,6 +1,6 @@
-package com.huwei.dailytest.collection;
+package com.huwei.dailytest.集合;
 
-import com.huwei.dailytest.entity.User;
+import com.huwei.dailytest.实体类.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.huwei.dailytest.multithread;
+package com.huwei.dailytest.多线程;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

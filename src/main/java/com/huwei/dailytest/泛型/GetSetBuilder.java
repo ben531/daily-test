@@ -1,6 +1,4 @@
-package com.huwei.dailytest.fanxing;
-
-import lombok.Data;
+package com.huwei.dailytest.泛型;
 
 public class GetSetBuilder {
 

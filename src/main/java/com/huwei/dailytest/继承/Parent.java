@@ -1,4 +1,4 @@
-package com.huwei.dailytest.extend;
+package com.huwei.dailytest.继承;
 
 import lombok.Data;
 

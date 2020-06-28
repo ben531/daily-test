@@ -1,9 +1,6 @@
-package com.huwei.dailytest.exception;
+package com.huwei.dailytest.异常;
 
-import org.apache.poi.util.StringUtil;
 import org.springframework.util.StringUtils;
-
-import javax.jws.soap.SOAPBinding;
 
 public class AppTest {
     public static void main(String[] args) {
