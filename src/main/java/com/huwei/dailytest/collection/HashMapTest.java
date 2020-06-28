@@ -1,28 +1,37 @@
 package com.huwei.dailytest.collection;
 
-import com.huwei.dailytest.entity.User;
+import org.springframework.lang.NonNull;
 
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 public class HashMapTest {
+
+    // @NotNull注解在这里没什么卵用
+    public static boolean isEmpty(@NotNull Map<?, ?> map) {
+        return map == null || map.isEmpty();
+    }
+
     public static void main(String[] args) {
 
-        List<User> list = new ArrayList<User>(){
-            {
-                add(new User("zz",11));
-//                add(new User("zz",19));
-                add(new User("ls",23));
-                add(new User("ww",15));
-            }
-        };
-        // u.getName必须唯一
-        Map<String, User> collect = list.stream().collect(Collectors.toMap(u -> u.getName(), Function.identity()));
-        collect.forEach((k,v)->{
-            System.out.println(k+"->"+v);
-        });
+        Map<String, String> map = null;
+        boolean empty = isEmpty(map);
+        System.out.println(empty);
 
+
+//        List<User> list = new ArrayList<User>(){
+//            {
+//                add(new User("zz",11));
+//                add(new User("zz",19));
+//                add(new User("ls",23));
+//                add(new User("ww",15));
+//            }
+//        };
+//        // u.getName必须唯一
+//        Map<String, User> collect = list.stream().collect(Collectors.toMap(u -> u.getName(), Function.identity()));
+//        collect.forEach((k,v)->{
+//            System.out.println(k+"->"+v);
+//        });
 
 //        Map<Integer, List<String>> hashMap = new HashMap<Integer, List<String>>() {
 //            {
