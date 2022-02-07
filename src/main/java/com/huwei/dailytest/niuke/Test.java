@@ -6,7 +6,21 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        System.out.println(String.format("%.6f", 1d / 16));
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(3);
+        list.add(10);
+        list.add(20);
+        list.remove(new Integer(3));
+        list.forEach(e -> System.out.println(e));
+//        TreeSet<Integer> treeSet = new TreeSet<>();
+//        treeSet.add(1);
+//        treeSet.add(3);
+//        treeSet.add(10);
+//        treeSet.remove(3);
+//        treeSet.forEach(e -> System.out.println(e));
+
+//        System.out.println(String.format("%.6f", 1d / 16));
     }
 
     // %.2f表示保留后两位，能四舍五入。
