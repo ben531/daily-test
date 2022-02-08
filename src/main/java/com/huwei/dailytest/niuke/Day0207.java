@@ -1,6 +1,5 @@
 package com.huwei.dailytest.niuke;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Day0207 {
@@ -17,8 +16,8 @@ public class Day0207 {
      * TODO 输出打印不连续的数组
      * VLAN资源池
      * <p>
-     * 20-21,15,18,30,5-10
-     * 15
+     * 20-21,15,18,20-30,5-10
+     * 30
      * 输出:
      * 5-10,18,20-21,30
      */
@@ -27,7 +26,6 @@ public class Day0207 {
             String resource = scanner.nextLine();
             int target = Integer.parseInt(scanner.nextLine());
             String[] split = resource.split(",");
-//            TreeSet<Integer> treeSet = new TreeSet<>();
             int[] arr = new int[31];
             for (int i = 0; i < split.length; i++) {
                 if (split[i].contains("-")) {
@@ -41,7 +39,37 @@ public class Day0207 {
                 }
             }
             arr[target] = 0;
-            System.out.println(Arrays.toString(arr));
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < arr.length; i++) {
+                int first = 0;
+                int last = 0;
+                int temp = 0;
+                if (arr[i] != 0) {
+                    first = arr[i];
+                    if (i == arr.length - 1) {
+                        last = arr[i];
+                    } else {
+                        for (int j = i + 1; j < arr.length; j++) {
+                            if (arr[j] == 0) {
+                                last = arr[j - 1];
+                                break;
+                            } else {
+                                temp++;
+                                continue;
+                            }
+                        }
+                    }
+                    if (first == last) {
+                        sb.append(first + ",");
+                    } else {
+                        sb.append(first + "-" + last + ",");
+                    }
+                }
+
+                i += temp;
+            }
+            System.out.println(sb.toString().substring(0, sb.length() - 1));
+
         }
     }
 
