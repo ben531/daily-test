@@ -1,8 +1,9 @@
 package com.huwei.dailytest.collection;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 public class HashMapTest {
     public static void main(String[] args) {
@@ -23,11 +24,13 @@ public class HashMapTest {
             System.out.println(entry.getKey() + "->" + entry.getValue());
         }
 
-        for (String key:
-             hashMap.keySet()) {
-            System.out.println(key+" >>> " +hashMap.get(key));
+        for (String key :
+                hashMap.keySet()) {
+            System.out.println(key + " >>> " + hashMap.get(key));
         }
 
+        List<String> collect = hashMap.values().stream().collect(Collectors.toList());
+        collect.forEach(System.out::println);
 
     }
 }
