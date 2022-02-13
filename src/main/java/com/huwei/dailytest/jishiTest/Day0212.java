@@ -89,11 +89,11 @@ public class Day0212 {
                     list.remove(i);
                     list.remove(i);
 //                    i -= 2 <= 0 ? -1 : i;
-                    i = Math.max(i, 0);
-                    i = i - 2;
-                    if (i <= 0) {
-                        i = -1;
-                    }
+                    i = i - 2 <= 0 ? -1 : i - 2;
+//                    i = i - 2;
+//                    if (i <= 0) {
+//                        i = -1;
+//                    }
                 }
             }
             System.out.println(list.size());
