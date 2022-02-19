@@ -8,7 +8,41 @@ public class Day0214 {
 
     public static void main(String[] args) {
 //        test53();
-        test52();
+//        test52();
+        test52_1();
+    }
+
+    private static void test52_1() {
+        List<String> list = Arrays.asList(scanner.nextLine().split(","));
+        list.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return Long.compare(jisuan(o1), jisuan(o2));
+            }
+        });
+        list.forEach(System.out::println);
+    }
+
+    private static long jisuan(String str1) {
+        //  3M12G9M
+        String[] split1 = str1.split("[A-Z]+");
+        // 3,12,9
+        String[] split2 = str1.split("[0-9]+");
+        // ,m,g,m
+        int sum = 0;
+        for (int i = 0; i < split1.length; i++) {
+            if ("M".equals(split2[i + 1])) {
+                sum += Integer.parseInt(split1[i]);
+            }
+            if ("G".equals(split2[i + 1])) {
+                sum += Integer.parseInt(split1[i]) * 1024;
+            }
+            if ("T".equals(split2[i + 1])) {
+                sum += Integer.parseInt(split1[i]) * 1024 * 1024;
+            }
+        }
+        return sum;
+
     }
 
     /**
