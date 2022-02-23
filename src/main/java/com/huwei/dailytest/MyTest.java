@@ -59,4 +59,24 @@ public class MyTest {
         List<String> string = list.subList(3, 5); // 下标越界
         strings.forEach(System.out::println);
     }
+
+    @Test
+    public void test7() {
+        List<Integer> list = new ArrayList<Integer>() {{
+            add(1);
+            add(12);
+            add(7);
+            add(8);
+        }};
+        Integer remove = list.remove(1);
+        System.out.println(remove);
+        list.forEach(System.out::println);
+    }
+
+    @Test
+    public void test8() {
+        List<Integer> list = new ArrayList<Integer>();
+        System.out.println(list.size());
+        list.set(0, 1);
+    }
 }
