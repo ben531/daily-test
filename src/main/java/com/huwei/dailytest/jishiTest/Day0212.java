@@ -9,23 +9,23 @@ public class Day0212 {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-//        test73();
-//        test72();
-//        test71();
-//        test70();
-//        test70_1();
-//        test69();
-//        test69_1();
-//        test68();
-//        test68_1();
-//        test67();
-//        test66();
-//        test66_1();
-//        test65();
-//        test64();
-//        test63();
-//        test62();
-//        test61();
+        test73();
+        test72();
+        test71();
+        test70();
+        test70_1();
+        test69();
+        test69_1();
+        test68();
+        test68_1();
+        test67();
+        test66();
+        test66_1();
+        test65();
+        test64();
+        test63();
+        test62();
+        test61();
         test60();
     }
 

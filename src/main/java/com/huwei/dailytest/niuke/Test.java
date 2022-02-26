@@ -1,8 +1,7 @@
 package com.huwei.dailytest.niuke;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Test {
     public static void main(String[] args) {
@@ -50,6 +49,154 @@ public class Test {
                 return o1 - o2;
             }
         });
-        list.stream().forEach(a -> System.out.println(a));
+        list.forEach(System.out::println);
     }
+
+    @org.junit.Test
+    public void test1() {
+        // hashmap 按value从大到小排序
+        HashMap<Integer, String> hashMap = new HashMap<Integer, String>() {
+            {
+                put(1, "zs");
+                put(2, "ls");
+                put(3, "ww");
+            }
+        };
+        Set<Map.Entry<Integer, String>> entries = hashMap.entrySet();
+        ArrayList<Map.Entry<Integer, String>> list1 = new ArrayList<>(entries);
+        list1.sort(new Comparator<Map.Entry<Integer, String>>() {
+            @Override
+            public int compare(Map.Entry<Integer, String> o1, Map.Entry<Integer, String> o2) {
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
+        list1.forEach(System.out::println);
+
+//        List<String> list = hashMap.values().stream().sorted().collect(Collectors.toList());
+//        list.forEach(System.out::println);
+//        LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap<Integer, String>() {
+//            {
+//                put(1, "zs");
+//                put(2, "ls");
+//                put(3, "ww");
+//            }
+//        };
+//
+//
+//        linkedHashMap.forEach((k, v) -> System.out.println(k + ":" + v));
+    }
+
+    @org.junit.Test
+    public void test2() {
+        // 求最大公约数
+        System.out.println(getY(12, 18));
+    }
+
+    private int getY(int a, int b) {
+        if (a < b) {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+        if (b == 0) {
+            return a;
+        }
+        return getY(b, a % b);
+    }
+
+    @org.junit.Test
+    public void test3() {
+        // 质因数分解
+        List<Integer> list1 = zysfj(18);
+        List<Integer> list2 = zysfj(12);
+        List<Integer> list = new ArrayList<>();
+        list.addAll(list1);
+        for (int i = 0; i < list2.size(); i++) {
+            if (!list.contains(list2.get(i))) {
+                list.add(list2.get(i));
+            }
+        }
+
+        zxgbs(18, 12);
+
+    }
+
+    private void zxgbs(int a, int b) {
+        int m = a * b;
+        for (int i = 1; i <= m; i++) {
+            if (i % a == 0 && i % b == 0) {
+                System.out.println(i);
+                break;
+            }
+        }
+    }
+
+
+    private List<Integer> zysfj(int num) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                sb.append(i).append(" ");
+                num = num / i;
+                i--;
+            }
+        }
+        sb.append(num).append(" ");
+        System.out.println(sb.toString());
+        return Arrays.stream(sb.toString().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+    }
+
+    @org.junit.Test
+    public void test4() {
+        // 100内的质数
+        int m = 101;
+        int n = (int) Math.sqrt(m);
+        int[] arr = new int[m];
+//        for (int i = 0; i < arr.length; i++) {
+//            arr[i] = i + 1;
+//        }
+        for (int i = 2; i <= n; i++) {
+            for (int j = i * i; j <= m; j += i) {
+                arr[j - 1] = 1;
+            }
+        }
+        arr[0] = 1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                System.out.println(i + 1);
+            }
+        }
+    }
+
+    // 杨辉三角
+    @org.junit.Test
+    public void test5() {
+        int n = 5;
+        int[][] arr = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    arr[i][j] = 1;
+                } else {
+                    arr[i][j] = arr[i - 1][j - 1] + arr[i - 1][j];
+                }
+//                System.out.print(arr[i][j] + " ");
+            }
+//            System.out.println();
+        }
+
+        // 打印等腰三角形格式
+        for (int i = 0; i < n; i++) {
+            int num = n - i - 2;
+            for (int j = 0; j <= num; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j <= i; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+
 }

@@ -75,8 +75,22 @@ public class MyTest {
 
     @Test
     public void test8() {
-        List<Integer> list = new ArrayList<Integer>();
-        System.out.println(list.size());
-        list.set(0, 1);
+        // 100 内的质数
+        int n = 100;
+        int[] arr = new int[n];
+        arr[0] = 1;
+        int m = (int) Math.sqrt(n);
+        for (int i = 2; i <= m; i++) {
+            for (int j = i * i; j <= n; j += i) {
+                arr[j - 1] = 1;
+            }
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                System.out.println(i + 1);
+            }
+        }
+        System.out.println(Arrays.stream(arr).sum());
     }
 }

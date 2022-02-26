@@ -64,7 +64,7 @@ public class Day0123 {
 
 
     /**
-     * 求一个数值的所有质数  * 解题思路：遍历1~数值中的所有数，作除判断，一个个抽出所以质数
+     * 求一个数值的所有质数  * 解题思路：遍历1~数值中的所有数，作除判断，一个个抽出所有质数
      */
     private static void test9() {
         Scanner scan = new Scanner(System.in);
