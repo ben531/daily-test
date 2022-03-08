@@ -9,9 +9,9 @@ public class Day0224 {
 
     public static void main(String[] args) {
 //        test1();
-//        test2();
+        test2();
 //        test3();
-        test4();
+//        test4();
     }
 
     /**

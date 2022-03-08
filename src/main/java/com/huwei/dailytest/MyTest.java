@@ -8,6 +8,95 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class MyTest {
+
+    @Test
+    public void test14() {
+        int[][] grid = new int[][]{
+                {1, 0, 1, 0, 1},
+                {0, 1, 0, 1, 0},
+                {1, 0, 1, 0, 1},
+                {0, 1, 0, 1, 0},
+                {1, 0, 1, 0, 1}
+        };
+
+        System.out.println(DFS(grid));
+    }
+
+    private int DFS(int[][] grid) {
+        boolean[] visited = new boolean[grid.length];
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            if (!visited[i]) {
+                count++;
+                dfs(grid, visited, i);
+            }
+        }
+        return count;
+    }
+
+    private void dfs(int[][] grid, boolean[] visited, int i) {
+        visited[i] = true;
+        for (int j = 0; j < grid.length; j++) {
+            if (!visited[j] && grid[i][j] == 1) {
+                visited[j] = true;
+            }
+
+        }
+    }
+
+    TreeSet<String> tree13 = new TreeSet<>();
+
+    @Test
+    public void test13() {
+        // 全排列
+        String[] arr = {"a", "b", "c"};
+        arrange13(arr, 0);
+        System.out.println(tree13);
+    }
+
+    private void arrange13(String[] arr, int i) {
+        if (i == arr.length) {
+            StringBuffer sb = new StringBuffer();
+            for (String str : arr) {
+                sb.append(str);
+            }
+            tree13.add(sb.toString());
+        }
+        for (int j = i; j < arr.length; j++) {
+            swap(arr, j, i);
+            arrange13(arr, ++i);
+            swap(arr, j, --i);
+        }
+    }
+
+    int step = 0;
+
+    @Test
+    public void test12() {
+        String str = "7 5 9 4 2 6 8 3 5 4 3 9";
+        Integer[] arr = Arrays.stream(str.split("\\s+"))
+                .map(Integer::parseInt).toArray(Integer[]::new);
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i < arr.length / 2; i++) {
+            step = 1;
+            step = jump(arr, i, i);
+            if (step != -1 && min > step) min = step;
+        }
+        System.out.println(min);
+    }
+
+    private int jump(Integer[] arr, int curPos, int lastPos) {
+        int num = arr[curPos];
+        if (lastPos == arr.length - 1) {
+            return step;
+        } else if (lastPos < arr.length - 1) {
+            step++;
+            return jump(arr, lastPos, num + lastPos);
+        } else {
+            return -1;
+        }
+    }
+
     @Test
     public void test1() {
         String str = "aASAa";
