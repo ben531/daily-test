@@ -1,12 +1,17 @@
 package com.huwei.dailytest.jishiTest;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Day0225 {
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        test1();
-        test2();
-        test3();
-        test4();
-        test5();
+//        test10();
+//        test9();
+//        test8();
+//        test7();
+        test6();
     }
 
     /**
@@ -50,7 +55,24 @@ public class Day0225 {
      * <p>
      * 说明，一次最多执行4个任务  最少耗时5s
      */
-    private static void test5() {
+    private static void test6() {
+        int m = Integer.parseInt(scanner.nextLine());
+        int n = Integer.parseInt(scanner.nextLine());
+        List<Integer> list = Arrays.stream(scanner.nextLine().split("\\s+")).map(Integer::parseInt).collect(Collectors.toList());
+        int time = 0; // 耗时
+        int mod = 0; // 余数
+
+        for (Integer task : list) {
+            task += mod;
+            int timei = task / m == 0 ? 1 : task / m;
+            time += timei;
+            mod = task / m == 0 ? 0 : task % m;
+        }
+        if (mod > 0) {
+            time++;
+        }
+        System.out.println(time);
+
     }
 
     /**
@@ -84,51 +106,120 @@ public class Day0225 {
      * 说明  小明身高100
      * 班级学生10个  身高分别为
      */
-    private static void test4() {
+    private static void test7() {
+        String[] split = scanner.nextLine().split("\\s+");
+        List<Integer> heightList = Arrays.stream(scanner.nextLine().split("\\s+")).map(Integer::parseInt).collect(Collectors.toList());
+        int heightBase = Integer.parseInt(split[0]);
+        int num = Integer.parseInt(split[1]);
+        List<Height> list = new ArrayList<>();
+        for (int i = 0; i < heightList.size(); i++) {
+            Integer currHeight = heightList.get(i);
+            Height height = new Height(Math.abs(currHeight - heightBase), currHeight);
+            list.add(height);
+        }
+        Collections.sort(list);
+        StringBuffer sb = new StringBuffer();
+        list.forEach(e -> sb.append(e.height).append(" "));
+        System.out.println(sb.toString().trim());
+    }
+
+    static class Height implements Comparable<Height> {
+        int heightAbs;
+        int height;
+
+        public Height(int heightAbs, int height) {
+            this.heightAbs = heightAbs;
+            this.height = height;
+        }
+
+        @Override
+        public int compareTo(Height o) {
+            if (this.heightAbs == o.heightAbs) {
+                return this.height - o.height;
+            }
+            return this.heightAbs - o.heightAbs;
+        }
     }
 
     /**
      * 输入一个英文文章片段
-     * 翻转指定区域的单词顺序
-     * 标点符号和普通字母一样处理
-     * 例如输入字符串 I am a developer.
-     * [0,3]
-     * 则输出 developer. a am I
+     * 翻转指定区间的单词顺序，标点符号和普通字母一样处理
+     * 例如输入字符串 "I am a developer."
+     * 区间[0,3]则输出 "developer. a am I"
      * <p>
-     * 输入描述
-     * 使用换行隔开3个参数
-     * 第一个参数为文章内容 即英文字符串
-     * 第二个参数为翻转起始单词下标，下标从0开始
-     * 第三个参数为结束单词下标
+     * 输入描述：
+     * 使用换行隔开三个参数
+     * 第一个参数为英文文章内容即英文字符串
+     * 第二个参数为反转起始单词下标，下标从0开始
+     * 第三个参数为结束单词下标，
      * <p>
      * 输出描述
+     * 反转后的英文文章片段，所有单词之间以一个半角空格分割进行输出
      * <p>
-     * 翻转后英文文章片段每个单词之间以一个半角空格分割输出
-     * <p>
-     * 例子
-     * <p>
+     * 示例一：
      * 输入
+     * I am a developer.
+     * 1
+     * 2
+     * 输出
+     * I a am developer.
+     * <p>
+     * 示例二：
+     * 输入
+     * Hello world!
+     * 0
+     * 1
+     * 输出
+     * world! Hello
+     * <p>
+     * 说明：
+     * 输入字符串可以在前面或者后面包含多余的空格，
+     * 但是反转后的不能包含多余空格
+     * <p>
+     * 示例三：
+     * 输入：
      * I am a developer.
      * 0
      * 3
      * 输出
-     * I a am developer.
+     * developer. a am I
      * <p>
+     * 说明：
+     * 如果两个单词见有多余的空格
+     * 将反转后单词间的空格减少到只含一个
+     * <p>
+     * 示例四：
      * 输入
-     * hello world!
+     * Hello!
      * 0
      * 3
      * 输出
-     * world! hello
+     * EMPTY
      * <p>
-     * 输入字符串可以在前面或者后面包含多个空格
-     * 但是翻转后的字符不能包括
-     * <p>
-     * 指定反转区间只有一个单词
-     * 或无有效单词
-     * 则输出EMPTY
+     * 说明：
+     * 指定反转区间只有一个单词，或无有效单词则统一输出EMPTY
      */
-    private static void test3() {
+    private static void test8() {
+        List<String> list = Arrays.stream(scanner.nextLine().split("\\s+")).collect(Collectors.toList());
+        int begin = Integer.parseInt(scanner.nextLine());
+        int end = Integer.parseInt(scanner.nextLine());
+        if (begin < 0 || begin >= list.size() ||
+                end >= list.size() || (end - begin + 1) > list.size()) {
+            System.out.println("EMPTY");
+            return;
+        }
+        List<String> list1 = list.subList(begin, end + 1);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < begin; i++) {
+            sb.append(list.get(i)).append(" ");
+        }
+        for (int i = list1.size() - 1; i >= 0; i--) {
+            sb.append(list1.get(i)).append(" ");
+        }
+        for (int i = end + 1; i < list.size(); i++) {
+            sb.append(list.get(i)).append(" ");
+        }
+        System.out.println(sb.toString().trim());
     }
 
     /**
@@ -163,7 +254,35 @@ public class Day0225 {
      * <p>
      * 备注：输入格式正确
      */
-    private static void test2() {
+    private static void test9() {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> list = Arrays.stream(scanner.nextLine().split(","))
+                .map(Integer::parseInt).sorted().collect(Collectors.toList());
+        if (list.size() < 3) {
+            System.out.println(-1);
+            return;
+        }
+        int money = Integer.parseInt(scanner.nextLine());
+
+        // 2 3 5 6 8 18
+        int sum;
+        int max = 0;
+        for (int i = 0; i <= list.size() - 3; i++) {
+            sum = 0;
+            sum += list.get(i) + list.get(i + 1) + list.get(i + 2);
+            if (sum > money) {
+                break;
+            }
+            if (max < sum) {
+                max = sum;
+            }
+        }
+        if (max > 0) {
+            System.out.println(max);
+        } else {
+            System.out.println(-1);
+        }
+
     }
 
     /**
@@ -188,6 +307,18 @@ public class Day0225 {
      * 输出
      * acf
      */
-    private static void test1() {
+    private static void test10() {
+        Scanner scanner = new Scanner(System.in);
+        String str1 = scanner.nextLine();
+        String str2 = scanner.nextLine();
+        TreeSet<Character> treeSet = new TreeSet<>();
+        for (int i = 0; i < str1.length(); i++) {
+            char c = str1.charAt(i);
+            if (str2.contains(String.valueOf(c))) {
+                treeSet.add(c);
+            }
+        }
+        treeSet.stream().forEach(System.out::print);
+
     }
 }

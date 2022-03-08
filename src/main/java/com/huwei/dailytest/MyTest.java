@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
 
 public class MyTest {
     @Test
@@ -78,9 +79,10 @@ public class MyTest {
         // 100 内的质数
         int n = 100;
         int[] arr = new int[n];
-        arr[0] = 1;
+        arr[0] = 1; // 1 不是质数, 所以a[0]记为 1
         int m = (int) Math.sqrt(n);
         for (int i = 2; i <= m; i++) {
+            // 不是质数, 记为 1
             for (int j = i * i; j <= n; j += i) {
                 arr[j - 1] = 1;
             }
@@ -92,5 +94,64 @@ public class MyTest {
             }
         }
         System.out.println(Arrays.stream(arr).sum());
+    }
+
+    @Test
+    public void test9() {
+        for (int i = 0; i < 4; i++) {
+            System.out.println((byte) (256 >> (i * 8)));
+        }
+    }
+
+    @Test
+    public void test10() {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        long count = list.stream().count();
+        System.out.println("count:" + count);
+        list.stream().reduce(Integer::min).ifPresent(System.out::println);
+        list.stream().reduce(Integer::max).ifPresent(System.out::println);
+        list.stream().reduce((i, j) -> i * j).ifPresent(System.out::println);
+    }
+
+    public TreeSet<String> treeSet = new TreeSet<>();
+
+    // 求全排列
+    // 先背诵, 再理解
+    @Test
+    public void test11() {
+        String[] arr = {"1", "2", "3"};
+
+        arrange(arr, 0);
+
+        for (String str : treeSet) {
+            System.out.println(str);
+        }
+    }
+
+    private void arrange(String[] arr, int k) {
+        if (k == arr.length) {
+            StringBuffer sb = new StringBuffer();
+            for (String str : arr) {
+                sb.append(str);
+            }
+            treeSet.add(sb.toString());
+            return;
+        }
+
+        for (int i = k; i < arr.length; i++) {
+            swap(arr, i, k);
+            arrange(arr, ++k);
+            swap(arr, i, --k);
+        }
+    }
+
+    private void swap(String[] arr, int i, int k) {
+        String temp = arr[i];
+        arr[i] = arr[k];
+        arr[k] = temp;
     }
 }

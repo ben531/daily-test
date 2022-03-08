@@ -9,24 +9,24 @@ public class Day0212 {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        test73();
-        test72();
-        test71();
-        test70();
-        test70_1();
-        test69();
-        test69_1();
-        test68();
-        test68_1();
+//        test73();
+//        test72();
+//        test71();
+//        test70();
+//        test70_1();
+//        test69();
+//        test69_1();
+//        test68();
+//        test68_1();
         test67();
-        test66();
-        test66_1();
-        test65();
-        test64();
-        test63();
-        test62();
-        test61();
-        test60();
+//        test66();
+//        test66_1();
+//        test65();
+//        test64();
+//        test63();
+//        test62();
+//        test61();
+//        test60();
     }
 
     /**
@@ -195,7 +195,7 @@ public class Day0212 {
     private static void test62() {
         while (scanner.hasNext()) {
             String s = scanner.nextLine();
-            String s1 = s.replaceAll("[0-9]|[a-z]", "");
+            String s1 = s.replaceAll("[0-9][a-z]", "");
             if (s1.length() > 0) {
                 System.out.println("!error");
                 return;
@@ -448,42 +448,54 @@ public class Day0212 {
      */
     private static void test65() {
         while (scanner.hasNext()) {
-            char[] chars = scanner.nextLine().toCharArray();
-            int i = Integer.parseInt(scanner.nextLine());
-            if (i > chars.length) {
-                i = chars.length;
+            String input = scanner.nextLine();
+            int k = Integer.parseInt(scanner.nextLine());
+            if (k > input.length()) {
+                k = input.length();
             }
-            char[] chars1 = new char[chars.length];
-            for (int j = 0; j < chars1.length; j++) {
-                chars1[j] = chars[j];
-            }
-            Arrays.sort(chars1);
-            char c = chars1[i - 1];
-            for (int j = 0; j < chars.length; j++) {
-                if (chars[j] == c) {
-                    System.out.println(j);
-                    break;
+            List<Character> list = input.chars().mapToObj(e -> (char) e).sorted().collect(Collectors.toList());
+            Character c = list.get(k - 1);
+            for (int i = 0; i < input.length(); i++) {
+                if (c == input.charAt(i)) {
+                    System.out.println(i);
+                    return;
                 }
             }
+
+//            char[] chars = scanner.nextLine().toCharArray();
+//            int i = Integer.parseInt(scanner.nextLine());
+//            if (i > chars.length) {
+//                i = chars.length;
+//            }
+//            char[] chars1 = new char[chars.length];
+//            for (int j = 0; j < chars1.length; j++) {
+//                chars1[j] = chars[j];
+//            }
+//            Arrays.sort(chars1);
+//            char c = chars1[i - 1];
+//            for (int j = 0; j < chars.length; j++) {
+//                if (chars[j] == c) {
+//                    System.out.println(j);
+//                    break;
+//                }
+//            }
         }
     }
 
     private static void test66_1() {
-        while (scanner.hasNext()) {
-            String s = scanner.nextLine();
-            int count = 0;
-            int max = 0;
-            for (int i = 0; i < s.length(); i++) {
-                if (isOk(s.charAt(i))) {
-                    count++;
-                } else {
-                    max = Math.max(count, max);
-                    count = 0;
-                }
+        String s = scanner.nextLine();
+        int count = 0;
+        int max = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (isOk(s.charAt(i))) {
+                count++;
+            } else {
+                max = Math.max(count, max);
+                count = 0;
             }
-
-            System.out.println(max);
         }
+
+        System.out.println(max);
     }
 
     /**
@@ -565,23 +577,24 @@ public class Day0212 {
         while (scanner.hasNext()) {
             String s = scanner.nextLine();
             char[] chars = s.toCharArray();
-            char min = s.charAt(0);
-            int index = 0;
-            for (int i = 1; i < s.length(); i++) {
-                if (s.charAt(i) < min) {
-                    min = s.charAt(i);
-                    index = i;
+            List<Character> list = s.chars().mapToObj(e -> (char) e).sorted().collect(Collectors.toList());
+            StringBuffer sb = new StringBuffer();
+            list.forEach(e -> sb.append(e));
+            for (int i = 0; i < chars.length; i++) {
+                if (chars[i] != sb.charAt(i)) {
+                    int i1 = s.lastIndexOf(sb.charAt(i));
+                    char temp = chars[i1];
+                    chars[i1] = chars[i];
+                    chars[i] = temp;
+                    break;
                 }
             }
-            if (index != 0) {
-                chars[index] = chars[0];
-                chars[0] = min;
-            }
-            StringBuffer sb = new StringBuffer();
-            for (char c : chars) {
+            sb.setLength(0);
+            for (Character c : chars) {
                 sb.append(c);
             }
-            System.out.println(sb.toString());
+
+            System.out.println(sb);
         }
     }
 
@@ -745,6 +758,7 @@ public class Day0212 {
         int count = 0;
         while (characters.size() != count) {
             count = characters.size();
+            // mMbccbc
             for (int i = 0; i < characters.size() - 1; i++) {
                 if (characters.get(i) == characters.get(i + 1)) {
                     characters.remove(i);

@@ -89,20 +89,28 @@ public class Test {
     @org.junit.Test
     public void test2() {
         // 求最大公约数
-        System.out.println(getY(12, 18));
+        System.out.println(getY1(18, 12));
     }
 
-    private int getY(int a, int b) {
+    private int getY1(int a, int b) {
+        if (a == 0 || b == 0) {
+            return 1;
+        }
+
         if (a < b) {
             int temp = a;
             a = b;
             b = temp;
         }
-        if (b == 0) {
-            return a;
+        if (a % b == 0) {
+            return b;
+        } else {
+            return getY1(b, a % b);
         }
-        return getY(b, a % b);
+
+
     }
+
 
     @org.junit.Test
     public void test3() {
@@ -117,18 +125,7 @@ public class Test {
             }
         }
 
-        zxgbs(18, 12);
 
-    }
-
-    private void zxgbs(int a, int b) {
-        int m = a * b;
-        for (int i = 1; i <= m; i++) {
-            if (i % a == 0 && i % b == 0) {
-                System.out.println(i);
-                break;
-            }
-        }
     }
 
 
@@ -198,5 +195,25 @@ public class Test {
         }
     }
 
+    @org.junit.Test
+    public void test6() {
+        System.out.println(gys(3, 7));
+    }
+
+    private int gys(int a, int b) {
+        if (a == 0 || b == 0) {
+            return 1;
+        }
+        if (a < b) {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+        if (a % b == 0) {
+            return b;
+        } else {
+            return gys(b, a % b);
+        }
+    }
 
 }

@@ -9,12 +9,13 @@ public class Day0213 {
     public static void main(String[] args) {
 //        test59();
 //        test59_1();
-//        test58();
-//        test58_1();
+        test58();
+        test58_1();
 //        test57();
 //        test56();
+//        test56_1();
 //        test55();
-        test54();
+//        test54();
     }
 
     /**
@@ -285,23 +286,52 @@ public class Day0213 {
      * 说明，一次最多执行4个任务  最少耗时5s
      */
     private static void test56() {
-        while (scanner.hasNext()) {
-            // 1s最多执行多少个
-            int n = Integer.parseInt(scanner.nextLine());
-            // 有多少任务
-            int m = Integer.parseInt(scanner.nextLine());
-            List<Integer> collect = Arrays.stream(scanner.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
-            int sum = 0;
-            int mod = 0;
-            for (int i = 0; i < collect.size(); i++) {
-                Integer integer = collect.get(i);
-                int i1 = (mod + integer) / n == 0 ? 1 : (mod + integer) / n;
-                sum += i1;
-                mod = (mod + integer) / n == 0 ? 0 : (mod + integer) % n;
-            }
-            System.out.println(sum);
+        // 1s最多执行多少个
+        int n = Integer.parseInt(scanner.nextLine());
+        // 有多少任务
+        int m = Integer.parseInt(scanner.nextLine());
+        List<Integer> collect = Arrays.stream(scanner.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+        int time = 0;
+        int mod = 0;
+        for (int i = 0; i < collect.size(); i++) {
+            Integer integer = collect.get(i);
+            int i1 = (mod + integer) / n == 0 ? 1 : (mod + integer) / n;
+            time += i1;
+            mod = (mod + integer) / n == 0 ? 0 : (mod + integer) % n;
+        }
+        if (mod != 0) {
+            time++;
+        }
+        System.out.println(time);
+    }
+
+    private static void test56_1() {
+        Scanner in = new Scanner(System.in);
+        int n = Integer.parseInt(in.nextLine().trim());
+        int len = Integer.parseInt(in.nextLine().trim());
+        String[] split = in.nextLine().split(" ");
+        int[] ints = new int[len];
+        for (int i = 0; i < len; i++) {
+            ints[i] = Integer.parseInt(split[i]);
         }
 
+        int time = 0;
+        int more = 0;
+        for (int i : ints) {
+            if (i + more > n) {
+                more = i + more - n;
+            } else {
+                more = 0;
+            }
+            time++;
+        }
+        while (more > 0) {
+            more -= n;
+            time++;
+        }
+
+        System.out.println(time);
+        in.close();
     }
 
     /**
@@ -476,16 +506,9 @@ public class Day0213 {
         int n = collect.get(1);
         List<Integer> times = Arrays.stream(scanner.nextLine().split(" ")).map(Integer::parseInt).sorted().collect(Collectors.toList());
         int sum = 0;
-//            if (timeCe() % m == 0) {
         for (int i = times.size() - 1; i >= 0; i -= m) {
             sum += times.get(i);
         }
-//            } else {
-//                int j = times.size() % m;
-//                for (int i = times.size() - m + j; i >= 0; i -= m) {
-//                    sum += times.get(i);
-//                }
-//            }
         System.out.println(sum);
     }
 

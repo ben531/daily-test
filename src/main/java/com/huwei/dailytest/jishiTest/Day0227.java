@@ -1,19 +1,24 @@
 package com.huwei.dailytest.jishiTest;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Day0227 {
     public static void main(String[] args) {
-        test1();
-        test2();
-        test3();
-        test4();
-        test5();
-        test6();
+//        test17();
+//        test2();
+//        test3();
+//        test4();
+//        test13();
+//        test6();
 
     }
 
     /**
      * 对一个数据a进行分类
      * 分类方法是 此数据a(4个字节大小)的4个字节相加对一个给定值b取模
+     * （byte）(x>>i*8)
+     * <p>
      * 如果得到的结果小于一个给定的值c则数据a为有效类型
      * 其类型为取模的值
      * 如果得到的结果大于或者等于c则数据a为无效类型
@@ -65,7 +70,31 @@ public class Day0227 {
      * 2
      */
     private static void test6() {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> list = Arrays.stream(scanner.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+        int c = list.get(0);
+        int b = list.get(1);
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        for (int i = 2; i < list.size(); i++) {
+            int a = intByteSum(list.get(i)) % b;
+            if (a < c) {
+                hashMap.put(a, hashMap.getOrDefault(a, 0) + 1);
+            }
+        }
+        Integer integer = hashMap.values().stream().reduce(Integer::max).get();
+        System.out.println(integer);
+
+
     }
+
+    private static int intByteSum(Integer x) {
+        int sum = 0;
+        for (int i = 0; i < 4; i++) {
+            sum += (byte) (x >> (i * 8));
+        }
+        return sum;
+    }
+
 
     /**
      * 二叉树也可以用数组来存储
@@ -101,10 +130,32 @@ public class Day0227 {
      * 例子
      * 输入
      * 5 9 8 -1 -1 7 -1 -1 -1 -1 -1 6
+     * 0 1 2  3  4 5  6  7  8  9  10 11
      * 输出
      * 5 8 7 6
      */
-    private static void test5() {
+    private static void test13() {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> list = Arrays.stream(scanner.nextLine().split("\\s+")).map(Integer::parseInt).collect(Collectors.toList());
+        list.add(0, -1);
+        Integer first = list.get(1);
+        Integer min = list.stream().filter(e -> e != first && e != -1).reduce(Integer::min).get();
+        int i = list.indexOf(min);
+        StringBuffer sb = new StringBuffer();
+        List<Integer> result = new ArrayList<>();
+        result.add(min);
+        for (int j = i; j > 1; ) {
+            if (j % 2 == 0) {
+                j = j / 2;
+            } else {
+                j = (j - 1) / 2;
+            }
+            result.add(list.get(j));
+        }
+        Collections.reverse(result);
+        result.forEach(e -> sb.append(e).append(" "));
+        System.out.println(sb.toString().trim());
+
     }
 
     /**
@@ -132,6 +183,18 @@ public class Day0227 {
      * 3
      */
     private static void test4() {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> list = Arrays.stream(scanner.nextLine().split(",")).map(Integer::parseInt).sorted().collect(Collectors.toList());
+        int n = Integer.parseInt(scanner.nextLine());
+        int sum = 0;
+        int i;
+        for (i = 0; i < list.size(); i++) {
+            sum += list.get(i);
+            if (sum > n) {
+                break;
+            }
+        }
+        System.out.println(i);
     }
 
     /**
@@ -166,6 +229,18 @@ public class Day0227 {
      * 任取其他两根支柱所能获得的面积都小于25 所以最大面积为25
      */
     private static void test3() {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> list = Arrays.stream(scanner.nextLine().split(",")).map(Integer::parseInt).collect(Collectors.toList());
+        long mj = 0;
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                long temp = Math.min(list.get(i), list.get(j)) * (j - i);
+                if (temp > mj) {
+                    mj = temp;
+                }
+            }
+        }
+        System.out.println(mj);
     }
 
     /**
@@ -222,6 +297,40 @@ public class Day0227 {
      * 单个单词的长度  1~30
      */
     private static void test2() {
+        Scanner scanner = new Scanner(System.in);
+        int a = Integer.parseInt(scanner.nextLine());
+        int b = Integer.parseInt(scanner.nextLine());
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < b; i++) {
+            list.add(scanner.nextLine());
+        }
+        StringBuffer sb = new StringBuffer();
+        String first = list.remove(a);
+        sb.append(first);
+        List<String> collect = list.stream().sorted((o1, o2) -> {
+            if (o1.length() != o2.length()) {
+                return o1.length() - o2.length() < 0 ? 1 : -1;
+            }
+            return o1.compareTo(o2);
+        }).collect(Collectors.toList());
+
+        boolean flag = false;
+        while (true) {
+            String end = sb.substring(sb.length() - 1, sb.length());
+            for (int i = 0; i < collect.size(); i++) {
+                flag = false;
+                if (collect.get(i).startsWith(end)) {
+                    sb.append(collect.remove(i));
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                break;
+            }
+        }
+        System.out.println(sb);
+
     }
 
     /**
@@ -260,6 +369,52 @@ public class Day0227 {
      * <p>
      * 则输出-1
      */
-    private static void test1() {
+    private static void test17() {
+        Scanner scanner = new Scanner(System.in);
+        String str = scanner.nextLine();
+        int k = Integer.parseInt(scanner.nextLine());
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        char temp = str.charAt(0);
+        int count = 1;
+        map.put(temp, count);
+        for (int i = 1; i < str.length(); i++) {
+            char current = str.charAt(i);
+            if (current == temp) {
+                count++;
+            } else {
+                temp = current;
+                count = 1;
+            }
+
+            Integer orDefault = map.getOrDefault(temp, 0);
+            if (orDefault < count) {
+                map.put(temp, count);
+            }
+
+        }
+
+
+//        for (int i = 0; i < str.length(); i++) {
+//            char current = str.charAt(i);
+//            int j = i + 1;
+//            int count = 1;
+//            while (j < str.length() && str.charAt(j) == current) {
+//                j++;
+//                count++;
+//            }
+//            Integer orDefault = map.getOrDefault(current, 0);
+//            if (count > orDefault) {
+//                map.put(current, count);
+//            }
+//            i = j - 1;
+//        }
+        map.forEach((m, v) -> System.out.println(m + ":" + v));
+        List<Integer> collect = map.values().stream().sorted().collect(Collectors.toList());
+        if (k > collect.size()) {
+            System.out.println(-1);
+        }
+        System.out.println(collect.get(collect.size() - k));
+
     }
 }

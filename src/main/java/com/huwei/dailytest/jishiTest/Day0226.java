@@ -1,13 +1,18 @@
 package com.huwei.dailytest.jishiTest;
 
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Day0226 {
+    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        test1();
-        test2();
-        test3();
-        test4();
-        test5();
+//        test5();
+//        test4(); // TODO 不会
+//        test3();
+//        test2();
+        test6();
 
     }
 
@@ -38,7 +43,39 @@ public class Day0226 {
      * 输出
      * Na
      */
-    private static void test5() {
+    private static void test6() {
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
+        List<String> list = new ArrayList<>();
+        for (int i = n; i < m; i++) {
+            for (int j = i; j < m; j++) {
+                for (int k = j; k < m; k++) {
+                    if (i < j && j < k && huzhi(i, j) && huzhi(j, k) && huzhi(k, i) && i * i + j * j == k * k) {
+                        list.add(i + " " + j + " " + k);
+                    }
+                }
+            }
+        }
+        if (list.size() > 0) {
+            list.forEach(System.out::println);
+        } else {
+            System.out.println("Na");
+
+        }
+    }
+
+    private static boolean huzhi(int i, int j) {
+        if (i > j) {
+            int temp = i;
+            i = j;
+            j = temp;
+        }
+        for (int k = 2; k <= i; k++) {
+            if (i % k == 0 && j % k == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -76,7 +113,34 @@ public class Day0226 {
      * <p>
      * 求和为1+1+1+1=4 ,满足要求最小
      */
-    private static void test4() {
+    private static void test2() {
+        Scanner scanner = new Scanner(System.in);
+        LinkedList<Integer> linkedList1 = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt).collect(Collectors.toCollection(LinkedList::new));
+        linkedList1.removeFirst();
+
+
+        LinkedList<Integer> linkedList2 = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt).collect(Collectors.toCollection(LinkedList::new));
+        linkedList2.removeFirst();
+
+        int n = Integer.parseInt(scanner.nextLine());
+
+        List<Integer> result = new ArrayList<>();
+
+        for (int i = 0; i < linkedList1.size(); i++) {
+            for (int j = 0; j < linkedList2.size(); j++) {
+                result.add(linkedList1.get(i) + linkedList2.get(j));
+            }
+        }
+        Collections.sort(result);
+//        result.sort(Comparator.comparingInt(o -> o));
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += result.get(i);
+        }
+        System.out.println(sum);
+
     }
 
     /**
@@ -98,6 +162,15 @@ public class Day0226 {
      * 18
      */
     private static void test3() {
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            int n = Integer.parseInt(scanner.nextLine());
+            long sum = 0;
+            for (int i = 0; i < n; i++) {
+                sum += Arrays.stream(scanner.nextLine().split("\\s+")).mapToInt(Integer::parseInt).sum();
+            }
+            System.out.println(sum);
+        }
     }
 
     /**
@@ -136,7 +209,7 @@ public class Day0226 {
      * 第四个信元的tag为31 其长度为2(02 00)
      * 所以返回长度后面的两个字节即可 为 32 33
      */
-    private static void test2() {
+    private static void test4() {
     }
 
     /**
@@ -161,6 +234,92 @@ public class Day0226 {
      * 输出
      * 2
      */
-    private static void test1() {
+    private static void test5() {
+        int n = scanner.nextInt();
+        int f1 = 1;
+        int f2 = 1;
+        int f3 = 2;
+        int f4 = n == 1 || n == 2 ? 1 : 2;
+        for (int i = 4; i <= n; i++) {
+            f4 = f3 + f1;
+            f1 = f2;
+            f2 = f3;
+            f3 = f4;
+        }
+        System.out.println(f4);
+
+        System.out.println(getR(n));
+    }
+
+    private static int getR(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 1;
+        }
+        if (n == 3) {
+            return 2;
+        }
+        return getR(n - 1) + getR(n - 3);
+    }
+
+    private static void test() {
+        // ab c d e f
+        List<String> arr = new ArrayList<String>() {
+            {
+                add("a");
+                add("b");
+                add("caxyz");
+                add("d");
+                add("e");
+            }
+        };
+
+        int max = Integer.MIN_VALUE;
+        for (String str : arr) {
+            int r = checkWord(str);
+            if (r > max) {
+                max = r;
+            }
+        }
+        for (int i = 0; i < arr.size(); i++) {
+            List<String> newList = new ArrayList<>(arr);
+            String s = newList.remove(i);
+            StringBuffer sb = new StringBuffer(s);
+            for (int j = 0; j < newList.size(); j++) {
+                if (isIn(newList.get(j), sb.toString())) {
+                    sb.append(newList.get(j));
+                }
+            }
+            if (sb.length() > max) {
+                max = sb.length();
+            }
+        }
+
+        System.out.println(max);
+    }
+
+    private static boolean isIn(String s1, String s2) {
+        for (int i = 0; i < s1.length(); i++) {
+            char c = s1.charAt(i);
+            if (s2.indexOf(String.valueOf(c)) != -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int checkWord(String str) {
+        char[] chars = str.toCharArray();
+        Set<Character> set = new HashSet<>();
+        for (Character c : chars) {
+            if (!set.contains(c)) {
+                set.add(c);
+            } else {
+                return 0;
+            }
+        }
+        return str.length();
     }
 }
